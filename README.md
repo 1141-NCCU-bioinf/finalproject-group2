@@ -99,7 +99,7 @@ Venn diagram showing differentially expressed genes (DEG) in D. sechellia and ot
 
 ### Fig. 2(a)
 Heat maps of expression profiles of Or genes.
-
+`heat_map.Rmd` takes the file `fpkm.csv` and recreates Fig.2(a) from the original article.
 ---
 
 ## References
