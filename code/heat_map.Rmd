@@ -1,0 +1,49 @@
+```{r}
+library(dplyr)
+library(stringr)
+library(readr)
+library(pheatmap)
+library(dendextend)
+```
+
+```{r}
+fpkm <- read_delim("fpkm.csv")
+```
+
+```{r}
+fpkm <- filter(fpkm, str_detect(gene_name, "^Or"))
+
+fpkm_2 <- mutate(fpkm,
+                 Dmel_m = rank(Dmel_m),
+                 Dmel_f = rank(Dmel_f),
+                 Dsec_TW_m = rank((Dsec_m1 + Dsec_m2 + Dsec_m3)/3),
+                 Dsec_TW_f = rank((Dsec_f1 + Dsec_f2 + Dsec_f3)/3),
+                 Dsec_JP_m = rank((Dsec_m4 + Dsec_m5 + Dsec_m6)/3),
+                 Dsec_JP_f = rank((Dsec_f4 + Dsec_f5+ Dsec_f6)/3),
+                 Dsim_m = rank((Dsim_m1 + Dsim_m2 + Dsim_m3)/3),
+                 Dsim_f = rank((Dsim_f1 + Dsim_f2 + Dsim_f3)/3
+                 ))
+```
+
+```{r}
+fpkm <- select(fpkm_2, Dmel_m, Dmel_f, Dsec_TW_m, Dsec_TW_f,
+               Dsec_JP_m, Dsec_JP_f, Dsim_m, Dsim_f, gene_name)
+```
+
+```{r}
+
+rownames(fpkm) <- fpkm$gene_name
+fpkm <- select(fpkm, -c(gene_name))
+```
+
+```{r}
+euclidean_dist_rows <- dist(fpkm, method = "euclidean")
+complete_clusters_euclidean_rows <- hclust(euclidean_dist_rows, method = "complete")
+euclidean_dist_cols <- dist(t(fpkm), method = "euclidean")
+complete_clusters_euclidean_cols <- hclust(euclidean_dist_cols, method = "complete")
+
+p = pheatmap(as.matrix(fpkm),
+         cluster_rows = complete_clusters_euclidean_rows,
+         cluster_cols = complete_clusters_euclidean_cols,
+)
+```
