@@ -94,6 +94,12 @@ Expression levels (FPKMs) and Log2-ratios of 18 chemosensory genes differentiall
 
 **Downregulated (5 genes):** Obp83a, Obp99c, Obp99d, Or9a, Or42b
 
+### Fig. 1(a) 
+Venn diagram showing differentially expressed genes (DEG) in D. sechellia and other two species. `plot_venn_diagram.R` takes the 4 output files starting with `DEG` (`DEG_table_Dsec_M_TW_vs_Dmel_M_TW`, `DEG_table_Dsec_M_JP_vs_Dsim_M_JP`, `DEG_table_Dsec_F_TW_vs_Dmel_F_TW` and `DEG_table_Dsec_F_JP_vs_Dsim_F_JP`) and exports two Vwnn diagrams: `up.jpeg` (up-regulated DEGs) and `down.jpeg` (down-regulated DEGs).
+
+### Fig. 2(a)
+Heat maps of expression profiles of Or genes.
+
 ---
 
 ## References
